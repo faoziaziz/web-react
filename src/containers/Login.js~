@@ -1,0 +1,49 @@
+/*
+  author : Aziz Amerul Faozi
+  desc : this login for login page.
+
+*/
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+import "./About.css"
+import Header from '../components/Header/Headers';
+import {Button} from "react-bootstrap";
+
+/* Login function */
+const Login=()=>{
+    
+    /* variable declatarion */
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [persons, setPersons]= useState([]);
+
+    /* for use effect function */
+    useEffect(()=>{
+	axios.get(`http://hanisa.faozi.tech:4561/portofolio/`)
+	    .then(res=>{
+		setPersons(res.data);
+		console.log(persons);
+	    });
+    }, []);
+
+
+    /* kita */
+    return (
+        <div className="About">
+            <Header />
+	    <div>
+	    
+	      <div className="lander">
+	      <h1>Login</h1>
+	    <p>Login scre.</p>
+	    
+	       <hr />
+	    <ul>{ persons.map(person => <li>{person.shortDesc}</li>)}</ul>
+	      </div>
+	    </div>
+        </div>
+
+    );
+}
+
+export default Login;

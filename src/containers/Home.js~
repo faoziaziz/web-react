@@ -1,0 +1,50 @@
+/* 
+   author : Aziz Amerul Faozi
+   deskription : some home screen 
+*/
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+import "./Home.css";
+import Header from '../components/Header/Headers';
+
+
+export default function Home() {
+
+    /* some function declaration */
+    const [count, setCount]=useState(0);
+    const [posts, setPosts]=useState([]);
+
+    /* this code using useEffect */
+    useEffect(()=>{
+	axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
+            setPosts(res.data.slice(0, 10));
+            console.log(posts);
+	})
+	
+
+    }, []);
+
+    
+    return (
+	
+	    <div className="Home">
+	    <Header />
+	    <div className="lander">
+            <h1>Home</h1>
+            <p>A simple note taking app</p>
+	    <hr />
+	    <h2>Portofolio</h2>
+	    <p>This description of portofolio.</p>
+	    <hr />
+	    <h2>Anjing</h2>
+	    <p>mantap</p>
+	    <hr />
+	    <p>You clicked {count} times.</p>
+	    <button onClick={()=>setCount(count+1)}>
+	    Click me
+	</button>
+	    {posts.map(post => <div key={post.id}>{post.content}</div>)}
+	    </div>	
+	    </div>
+    );
+}
